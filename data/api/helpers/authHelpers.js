@@ -2,6 +2,7 @@ const knex = require('knex');
 const knexConfig = require('../../../knexfile')
 const db = knex(knexConfig.development)
 const jwt = require('jsonwebtoken')
+const env = require ('dotenv').config ();
 module.exports = {
     lock: function(req,res,next){
         const token = req.headers.authorization;
@@ -24,9 +25,6 @@ module.exports = {
     generateToken: function(user){
         const payload = {
             username: user.username,
-            fullName: user.fullName,
-            email: user.email,
-            userImgUrl: user.userImgUrl
         }
         const secret = process.env.JWT_SECRET
         const options = {
@@ -37,7 +35,7 @@ module.exports = {
     registerUser: function(user){
         return db.insert(user).into('users')
     },
-    loginUser: function(){
-        return db ('users').where ({username: creds.username}).first ();
+    loginUser: function(creds){
+        return db('users').where ({username: creds.username}).first ();
     }
 }

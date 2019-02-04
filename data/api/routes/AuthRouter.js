@@ -33,16 +33,17 @@ router.post ('/login', (req, res) => {
     if (!creds.password) {
         res.status (400).json ({message: 'missing password'});
         }
-    helper.loginUser.then (user => {
+   helper.loginUser(creds)
+   .then (user => {
       if (user && bcrypt.compareSync (creds.password, user.password)) {
-        const token = generateToken (user);
-        res.status (200).json ({message: `welcome`, token});
+        const token = helper.generateToken (user);
+        res.status (200).json ({id: user.id,username: user.username, fullName: user.fullName, email: user.email, userImgUrl: user.userImgUrl, token});
       } else {
-        res.status (401).json ({message: 'You shall not pass'});
+        res.status (401).json ({message: 'no token'});
       }
     })
     .catch (err => {
-      res.status (500).json (err);
+      res.status (500).json ({errorMessage: err});
     });
 });
 
