@@ -7,7 +7,7 @@ module.exports = {
     connection: {
       filename: './data/artDatabase.sqlite3'
     }
-  },
+  }, useNullAsDefault: false,
 
 
 };

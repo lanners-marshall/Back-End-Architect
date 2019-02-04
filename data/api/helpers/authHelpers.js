@@ -1,6 +1,6 @@
 const knex = require('knex');
-const env = require('dotenv').config()
-const db = require('../../dbConfig')
+const knexConfig = require('../../../knexfile')
+const db = knex(knexConfig.development)
 const jwt = require('jsonwebtoken')
 module.exports = {
     lock: function(req,res,next){
@@ -33,5 +33,11 @@ module.exports = {
             expiresIn: '45m',
         }
         return jwt.sign(payload, secret, options)
+    },
+    registerUser: function(user){
+        return db.insert(user).into('users')
+    },
+    loginUser: function(){
+        return db ('users').where ({username: creds.username}).first ();
     }
 }
