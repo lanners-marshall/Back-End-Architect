@@ -33,8 +33,8 @@
   }
   ```
 #### Response
-##### 200 (ok)
-> correctly executed endpoint
+##### 201 (ok)
+> created user
 ##### 400 (Bad Request)
 ```
   {
