@@ -28,18 +28,24 @@ router.post('/register', (req, res) => {
 router.post ('/login', (req, res) => {
   const creds = req.body;
     if(!creds.username){
-        res.status(400).json({message: 'missing username'})
+        res.status(400).json({errorMessage: 'missing username'})
     }
     if (!creds.password) {
-        res.status (400).json ({message: 'missing password'});
+        res.status (400).json ({errorMessage: 'missing password'});
         }
    helper.loginUser(creds)
    .then (user => {
       if (user && bcrypt.compareSync (creds.password, user.password)) {
         const token = helper.generateToken (user);
-        res.status (200).json ({id: user.id,username: user.username, fullName: user.fullName, email: user.email, userImgUrl: user.userImgUrl, token});
+        res.status (200).json ({
+            id: user.id,
+            username: user.username, 
+            fullName: user.fullName, 
+            email: user.email, 
+            userImgUrl: user.userImgUrl,
+            token}); 
       } else {
-        res.status (401).json ({message: 'no token'});
+        res.status (401).json ({errorMessage: "passwords don't match"});
       }
     })
     .catch (err => {
