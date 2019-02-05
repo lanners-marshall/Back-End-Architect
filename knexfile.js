@@ -17,7 +17,6 @@ module.exports = {
     }
   }, 
   migrations: {
-    tableName: 'posts',
     directory: './migrations'
   },
   useNullAsDefault: false,
@@ -30,7 +29,6 @@ module.exports = {
       max: 10,
     },
     migrations: {
-      tableName: 'posts',
       directory: './migrations'
     }
   }
