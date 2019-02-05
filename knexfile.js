@@ -19,7 +19,7 @@ module.exports = {
   migrations: {
     directory: './migrations'
   },
-  useNullAsDefault: false,
+  useNullAsDefault: true,
 
   production: {
     client: 'pg',
@@ -31,7 +31,8 @@ module.exports = {
     migrations: {
       directory: './migrations'
     }
-  }
+  },
+  useNullAsDefault: true
 
 
 
