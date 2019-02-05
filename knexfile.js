@@ -1,4 +1,12 @@
 // Update with your config settings.
+require('dotenv').config();
+const localPg = {
+  host: 'localhost', 
+  database: 'Database',
+  user: process.env.DB_USERS,
+  password: process.env.DB_PASS
+};
+const dbConnection = process.env.DATABASE_URL || localPg;
 
 module.exports = {
 
@@ -7,7 +15,28 @@ module.exports = {
     connection: {
       filename: './data/artDatabase.sqlite3'
     }
-  }, useNullAsDefault: false,
+  }, 
+  migrations: {
+    tableName: 'posts',
+    directory: './migrations'
+  },
+  useNullAsDefault: false,
+
+  production: {
+    client: 'pg',
+    connection: dbConnection,
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      tableName: 'posts',
+      directory: './migrations'
+    }
+  }
+
 
 
 };
+
+
